@@ -99,11 +99,6 @@ public class TaskManagementServiceImpl implements TaskManagementService {
                     .filter(t -> t.getTask() == taskType && t.getStatus() != TaskStatus.COMPLETED)
                     .collect(Collectors.toList());
 
-            for (TaskManagement taskToUpdate : tasksOfType) {
-                taskToUpdate.setStatus(TaskStatus.CANCELLED);
-                taskRepository.save(taskToUpdate);
-            }
-
             // BUG #1 is here. It should assign one and cancel the rest.
             // Instead, it reassigns ALL of them.
             if (!tasksOfType.isEmpty()) {
